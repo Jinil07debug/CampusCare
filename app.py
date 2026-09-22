@@ -100,30 +100,12 @@ def complaint_similarity(left, right):
 
 
 def seed_data():
-    existing = User.query.filter_by(email="aarav@college.edu").first()
-
-    if existing:
-        existing.name = "Student"
-        existing.email = "student@college.edu"
-        db.session.commit()
-        return
-
-    student = User(
-        name="Student",
-        email="student@college.edu",
-        role="student",
-        credibility_score=92
-    )
+    if User.query.count():
+       return
+    student = User(name="Student", email="student@college.edu", role="student", credibility_score=92)
     student.set_password("campus-demo")
-
-    admin = User(
-        name="Admin Desk",
-        email="admin@college.edu",
-        role="admin",
-        credibility_score=100
-    )
+    admin = User(name="Admin Desk", email="admin@college.edu", role="admin", credibility_score=100)
     admin.set_password("admin-demo")
-
     db.session.add_all([student, admin])
     db.session.flush()
     samples = [
